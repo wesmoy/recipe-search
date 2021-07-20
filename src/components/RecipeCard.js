@@ -25,8 +25,8 @@ const RecipeCard = ({recipe: {img, ID, title}}) => {
         display="flex" 
         flexDirection="column" 
         m={4}
-        p={3} 
-        width="30%">
+        maxWidth="480px"
+        p={3}>
         <img 
           alt={`Recipe of the day ${title}`} 
           className={classes.image} 

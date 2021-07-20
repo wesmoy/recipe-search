@@ -17,6 +17,10 @@ const styles = makeStyles({
   },
 });
 
+const theme = createTheme({
+  spacing: 8,
+});
+
 const HomeView = () => {
   const [recipes, setRecipes] = useState([]);
   
@@ -57,22 +61,25 @@ const HomeView = () => {
   }
 
   return (
-    <Container className={classes.pageContainer} maxWidth={false}>
-      <Box align="center" p={{xs: 3, md: 8, lg: 12}}>
-        <Typography 
-          align="center" 
-          component="h1"
-          m={2}
-          variant="h3">
-          Recipes of the day
-        </Typography>
-        {recipes.map((recipe, idx) => {
-          return (
-            <RecipeCard key={idx} recipe={recipe} />
-          )
-        })}
-      </Box>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container className={classes.pageContainer} maxWidth={false}>
+        <Box align="center" py={{xs: 3, md: 8, lg: 12}}>
+          <Box my={4}>
+            <Typography 
+              align="center" 
+              component="h1"
+              variant="h3">
+              Recipes of the day
+            </Typography>
+          </Box>
+          {recipes.map((recipe, idx) => {
+            return (
+              <RecipeCard key={idx} recipe={recipe} />
+            )
+          })}
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 

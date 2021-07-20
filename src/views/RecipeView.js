@@ -18,18 +18,39 @@ const styles = makeStyles({
   pageContainer: {
     backgroundColor: '#eee',
   },
+  image: {
+    maxWidth: '480px',
+    width: '100%',
+  },
 });
 
 const RecipeView = () => {
   const { ID } = useParams();
-  const [name, setName] = useState('');
+  const [directions, setDirections] = useState('');
   const [imageSrc, setImageSrc] = useState('');
+  const [ingredients, setIngredients] = useState([]);
+  const [measurements, setMeasurements] = useState([]);
+  const [name, setName] = useState('');
 
   const classes = styles();
 
   useEffect(() => {
     getRecipe();
   }, []);
+
+  const getIngredients = (recipe) => {
+    const ingredients = [];
+    const measurements = [];
+    Object.keys(recipe).forEach(key => {
+      if (key.startsWith('strIngredient')) {
+        ingredients.push(recipe[key]);
+      } else if (key.startsWith('strMeasure')) {
+        measurements.push(recipe[key]);
+      }
+    });
+    setIngredients(ingredients);
+    setMeasurements(measurements);
+  }
 
   const getRecipe = async () => {
     const responses = [];
@@ -38,25 +59,46 @@ const RecipeView = () => {
       await axios.get(
         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${ID}`
       );
-    console.log(request.data.meals[0]);
-    const {idMeal, strMeal, strMealThumb} = request.data.meals[0];
-    setName(strMeal);
+    const {idMeal, strInstructions, strMeal, strMealThumb} = request.data.meals[0];
+    getIngredients(request.data.meals[0]);
+    setDirections(strInstructions)
     setImageSrc(strMealThumb);
+    setName(strMeal);
   }
 
   return (
-    <Container className={classes.pageContainer} maxWidth={false}>
-      <Box align="center" p={{xs: 3, md: 8, lg: 12}}>
-        <Typography 
-          align="center" 
-          component="h1"
-          m={2}
-          variant="h3">
-          {name}
-        </Typography>
-        <img src={imageSrc} />
-      </Box>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container className={classes.pageContainer} maxWidth={false}>
+        <Box align="center" p={{xs: 3, md: 8, lg: 12}}>
+          <Box mb={4} maxWidth="600px">
+            <Typography 
+              align="center" 
+              component="h1"
+              variant="h3">
+              {name}
+            </Typography>
+          </Box>
+          <Box display="inline-block">
+            <img className={classes.image} src={imageSrc} />
+          </Box>
+          <Box align="left" maxWidth="480px" p={4}>
+            <Typography>{directions}</Typography>
+          </Box>
+          <Typography variant="h2">Ingredients</Typography>
+          <Box align="left" mt={4} maxWidth="480px">
+            {
+              ingredients.map((ingredient, idx) => {
+                return (
+                  <Typography>
+                    {`${measurements[idx]} ${ingredient}`}
+                  </Typography>
+                );
+              })
+            }
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 
