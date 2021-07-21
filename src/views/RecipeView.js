@@ -81,7 +81,7 @@ const RecipeView = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container className={classes.pageContainer} maxWidth={false}>
-        <Box position="fixed" maxWidth="24px">
+        <Box position="sticky" maxWidth="24px">
           <Button component={Link} to="/">
             <img className={classes.image} src={Logo} />
           </Button>
