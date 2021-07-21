@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core/styles';
 import HomeView from './views/HomeView';
 import RecipeView from './views/RecipeView';
+import SearchModal from './components/SearchModal';
 
 const theme = createTheme({
   spacing: 8,
@@ -26,6 +27,7 @@ const App = () => {
             <HomeView />
           </Route>
         </Switch>
+        <SearchModal />
       </Router>
     </ThemeProvider>
   );

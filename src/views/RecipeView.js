@@ -1,6 +1,9 @@
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import { Link } from "react-router-dom";
+import Logo from '../images/logo.png';
 import Typography from '@material-ui/core/Typography';
 import { useParams } from "react-router-dom";
 import { 
@@ -59,7 +62,12 @@ const RecipeView = () => {
       await axios.get(
         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${ID}`
       );
-    const {idMeal, strInstructions, strMeal, strMealThumb} = request.data.meals[0];
+    const {
+      idMeal, 
+      strInstructions, 
+      strMeal, 
+      strMealThumb
+    } = request.data.meals[0];
     getIngredients(request.data.meals[0]);
     setDirections(strInstructions)
     setImageSrc(strMealThumb);
@@ -69,6 +77,11 @@ const RecipeView = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container className={classes.pageContainer} maxWidth={false}>
+        <Box position="fixed" maxWidth="24px">
+          <Button component={Link} to="/">
+            <img className={classes.image} src={Logo} />
+          </Button>
+        </Box>
         <Box align="center" p={{xs: 3, md: 8, lg: 12}}>
           <Box mb={4} maxWidth="600px">
             <Typography 
@@ -81,10 +94,6 @@ const RecipeView = () => {
           <Box display="inline-block">
             <img className={classes.image} src={imageSrc} />
           </Box>
-          <Box align="left" maxWidth="480px" p={4}>
-            <Typography>{directions}</Typography>
-          </Box>
-          <Typography variant="h2">Ingredients</Typography>
           <Box align="left" mt={4} maxWidth="480px">
             {
               ingredients.map((ingredient, idx) => {
@@ -95,6 +104,13 @@ const RecipeView = () => {
                 );
               })
             }
+          </Box>
+          <Box align="left" maxWidth="480px" p={4}>
+            <Typography variant="h2" gutterBottom={true}>Directions</Typography>    
+            {directions.split('.').map(sentence => {
+              return sentence.length > 0 && 
+                <Typography>{`${sentence}.`}</Typography>
+            })}
           </Box>
         </Box>
       </Container>

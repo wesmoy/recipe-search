@@ -3,7 +3,8 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import RecipeCard from '../components/RecipeCard';
 import Typography from '@material-ui/core/Typography';
-
+import Background from '../images/home-background.jpg';
+import Logo from '../images/logo.png';
 import { 
   createTheme, 
   makeStyles, 
@@ -12,6 +13,15 @@ import {
 import { useEffect, useState } from 'react';
 
 const styles = makeStyles({
+  backgroundImage: {
+    maxWidth: '800px',
+    width: '100%',
+  },
+  logo: {
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
   pageContainer: {
     backgroundColor: '#eee',
   },
@@ -63,6 +73,12 @@ const HomeView = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container className={classes.pageContainer} maxWidth={false}>
+        <Box align="center" position="relative">
+          <img className={classes.backgroundImage} src={Background} />
+          <Box className={classes.logo} position="absolute">
+            <img src={Logo} />
+          </Box>
+        </Box>
         <Box align="center" py={{xs: 3, md: 8, lg: 12}}>
           <Box my={4}>
             <Typography 
