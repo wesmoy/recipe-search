@@ -55,8 +55,8 @@ const RecipeView = () => {
         measurements.push(recipe[key]);
       }
     });
-    setIngredients(ingredients);
-    setMeasurements(measurements);
+    setIngredients(ingredients.filter(item => item != null));
+    setMeasurements(measurements.filter(measurement => measurement != null));
   }
 
   const getRecipe = async () => {
