@@ -41,6 +41,10 @@ const RecipeView = () => {
     getRecipe();
   }, []);
 
+  useEffect(() => {
+    getRecipe();
+  }, [ID])
+
   const getIngredients = (recipe) => {
     const ingredients = [];
     const measurements = [];
