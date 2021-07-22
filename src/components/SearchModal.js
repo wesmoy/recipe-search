@@ -24,6 +24,8 @@ const SearchModal = () => {
   const [results, setResults] = useState([]);
   const classes = styles();
 
+  const NUM_OF_RESULTS = 10;
+
   useEffect(() => {
     genResults();
   }, [query]);
@@ -36,7 +38,7 @@ const SearchModal = () => {
       `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
     );
     const response = request.data.meals || [];
-    const recipes = response.slice(0, 5).map(recipe => {
+    const recipes = response.slice(0, NUM_OF_RESULTS).map(recipe => {
       return {ID: recipe.idMeal, name: recipe.strMeal};
     })
     setResults(recipes);
@@ -65,6 +67,7 @@ const SearchModal = () => {
         openModal && 
         <Box p={1} display="inline">
           <TextField 
+            label="Search"
             onChange={(e) => {setQuery(e.target.value)}}
             value={query}
           />

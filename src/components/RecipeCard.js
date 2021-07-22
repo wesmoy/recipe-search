@@ -28,7 +28,7 @@ const RecipeCard = ({recipe: {img, ID, title}}) => {
         maxWidth="480px"
         p={3}>
         <img 
-          alt={`Recipe of the day ${title}`} 
+          alt={`Recipe of the day: ${title}`} 
           className={classes.image} 
           src={img} 
         />

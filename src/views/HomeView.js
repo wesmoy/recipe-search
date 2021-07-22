@@ -74,9 +74,13 @@ const HomeView = () => {
     <ThemeProvider theme={theme}>
       <Container className={classes.pageContainer} maxWidth={false}>
         <Box align="center" position="relative">
-          <img className={classes.backgroundImage} src={Background} />
+          <img 
+            alt="Variety of dishes" 
+            className={classes.backgroundImage} 
+            src={Background} 
+          />
           <Box className={classes.logo} position="absolute">
-            <img src={Logo} />
+            <img alt="Recipe Search Logo" src={Logo} />
           </Box>
         </Box>
         <Box align="center" py={{xs: 3, md: 8, lg: 12}}>

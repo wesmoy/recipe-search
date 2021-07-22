@@ -60,14 +60,11 @@ const RecipeView = () => {
   }
 
   const getRecipe = async () => {
-    const responses = [];
-    // synchronous requests to avoid getting same meal
     const request = 
       await axios.get(
         `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${ID}`
       );
     const {
-      idMeal, 
       strInstructions, 
       strMeal, 
       strMealThumb
@@ -83,7 +80,7 @@ const RecipeView = () => {
       <Container className={classes.pageContainer} maxWidth={false}>
         <Box position="sticky" maxWidth="24px">
           <Button component={Link} to="/">
-            <img className={classes.image} src={Logo} />
+            <img alt="Recipe Logo" className={classes.image} src={Logo} />
           </Button>
         </Box>
         <Box align="center" p={{xs: 3, md: 8, lg: 12}}>
@@ -96,7 +93,11 @@ const RecipeView = () => {
             </Typography>
           </Box>
           <Box display="inline-block">
-            <img className={classes.image} src={imageSrc} />
+            <img 
+              alt={`Close up shot of ${name}`} 
+              className={classes.image} 
+              src={imageSrc} 
+            />
           </Box>
           <Box align="left" mt={4} maxWidth="480px">
             {
@@ -109,7 +110,7 @@ const RecipeView = () => {
               })
             }
           </Box>
-          <Box align="left" maxWidth="480px" p={4}>
+          <Box align="left" maxWidth="480px" mt={4}>
             <Typography variant="h2" gutterBottom={true}>Directions</Typography>    
             {directions.split('.').map(sentence => {
               return sentence.length > 0 && 

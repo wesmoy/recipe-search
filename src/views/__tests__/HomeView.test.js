@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import HomeView from '../HomeView';
 
 test('renders header element', () => {
-  render(<App />);
+  render(<HomeView />);
   const headerElement = screen.getByText(/Recipes of the day/i);
   expect(headerElement).toBeInTheDocument();
 });
