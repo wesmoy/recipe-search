@@ -103,7 +103,7 @@ const RecipeView = () => {
             {
               ingredients.map((ingredient, idx) => {
                 return (
-                  <Typography>
+                  <Typography key={idx}>
                     {`${measurements[idx]} ${ingredient}`}
                   </Typography>
                 );
@@ -112,9 +112,9 @@ const RecipeView = () => {
           </Box>
           <Box align="left" maxWidth="480px" mt={4}>
             <Typography variant="h2" gutterBottom={true}>Directions</Typography>    
-            {directions.split('.').map(sentence => {
+            {directions.split('.').map((sentence, idx) => {
               return sentence.length > 0 && 
-                <Typography>{`${sentence}.`}</Typography>
+                <Typography key={idx}>{`${sentence}.`}</Typography>
             })}
           </Box>
         </Box>
